@@ -1,5 +1,7 @@
 package com.tarnet;
 
+import com.tarnet.enums.InventoryItemType;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,27 +22,31 @@ public class ConsoleApp {
         do {
             Run(-1);
         } while (!isExited);
-
     }
 
     private static void GenerateAppMenu() {
 //        appMenuTree[0] = new MenuItem.Builder().withId(1).withTitle("Personel").withDisplayOrder(1).build();
-//        appMenuTree[1] = new MenuItem.Builder().withId(2).withTitle("Satislar").withDisplayOrder(2).build();
-//        appMenuTree[2] = new MenuItem.Builder().withId(3).withTitle("Krediler").withDisplayOrder(3).build();
+//        appMenuTree[1] = new MenuItem.Builder().withId(2).withTitle("Envanter").withDisplayOrder(2).build();
+//        appMenuTree[2] = new MenuItem.Builder().withId(3).withTitle("Departmanlar").withDisplayOrder(3).build();
 
-        appMenuTree.add(new MenuItem.Builder().withId(1).withTitle("Personel").withParentId(-1).withDisplayOrder(1).build());
+        appMenuTree.add(new MenuItem.Builder()
+                .withId(1)
+                .withTitle("Personel")
+                .withParentId(-1)
+                .withDisplayOrder(1)
+                .build());
 
         appMenuTree.add(new MenuItem.Builder().withId(11).withTitle("Ekle").withParentId(1).withDisplayOrder(1).build());
         appMenuTree.add(new MenuItem.Builder().withId(12).withTitle("Cikar").withParentId(1).withDisplayOrder(2).build());
         appMenuTree.add(new MenuItem.Builder().withId(13).withTitle("Listele").withParentId(1).withDisplayOrder(3).build());
 //----------------------------------------------------------------------------------------------------------------------------
-        appMenuTree.add(new MenuItem.Builder().withId(2).withTitle("Satislar").withParentId(-1).withDisplayOrder(3).build());
+        appMenuTree.add(new MenuItem.Builder().withId(2).withTitle("Departmanlar").withParentId(-1).withDisplayOrder(3).build());
 
         appMenuTree.add(new MenuItem.Builder().withId(21).withTitle("Ekle").withParentId(2).withDisplayOrder(1).build());
         appMenuTree.add(new MenuItem.Builder().withId(22).withTitle("Cikar").withParentId(2).withDisplayOrder(2).build());
         appMenuTree.add(new MenuItem.Builder().withId(23).withTitle("Listele").withParentId(2).withDisplayOrder(3).build());
 //----------------------------------------------------------------------------------------------------------------------------
-        appMenuTree.add(new MenuItem.Builder().withId(3).withTitle("Krediler").withParentId(-1).withDisplayOrder(2).build());
+        appMenuTree.add(new MenuItem.Builder().withId(3).withTitle("Envanter").withParentId(-1).withDisplayOrder(2).build());
 
         appMenuTree.add(new MenuItem.Builder().withId(31).withTitle("Ekle").withParentId(3).withDisplayOrder(1).build());
         appMenuTree.add(new MenuItem.Builder().withId(32).withTitle("Cikar").withParentId(3).withDisplayOrder(2).build());
@@ -68,9 +74,10 @@ public class ConsoleApp {
 //        System.out.printf("Stream Menu has been generated in %s ms.\n",endTime);
         System.out.print("Seciminiz:");
         int selectedMenuItem = Integer.parseInt(consoleReader.readLine());
-        if (selectedMenuItem == 0 && parentId==-1) {
+        if (selectedMenuItem == 0 && parentId == -1) {
             isExited = true;
         } else {
+            if (selectedMenuItem == 0) return;
             Run(selectedMenuItem);
         }
     }

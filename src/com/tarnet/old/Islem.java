@@ -1,4 +1,4 @@
-package com.tarnet;
+package com.tarnet.old;
 
 public class Islem {
     private int firstNumber;

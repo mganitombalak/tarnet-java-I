@@ -1,4 +1,4 @@
-package com.tarnet;
+package com.tarnet.old;
 
 public class MyApplication {
     public static void main(String[] args) {
