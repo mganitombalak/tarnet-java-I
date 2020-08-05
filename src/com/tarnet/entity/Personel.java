@@ -1,6 +1,8 @@
 package com.tarnet.entity;
 
-public class Personel {
+import com.tarnet.interfaces.IEntity;
+
+public class Personel implements IEntity {
     private int id;
     private String firstName;
     private String lastName;

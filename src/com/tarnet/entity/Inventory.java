@@ -1,8 +1,9 @@
 package com.tarnet.entity;
 
 import com.tarnet.enums.InventoryItemType;
+import com.tarnet.interfaces.IEntity;
 
-public class Inventory {
+public class Inventory implements IEntity {
     private int id;
     private String name;
     private InventoryItemType itemType;
@@ -37,5 +38,14 @@ public class Inventory {
 
     public void setItemType(InventoryItemType itemType) {
         this.itemType = itemType;
+    }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", itemType=" + itemType +
+                '}';
     }
 }

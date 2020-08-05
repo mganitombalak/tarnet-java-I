@@ -1,6 +1,8 @@
 package com.tarnet.entity;
 
-public class Department {
+import com.tarnet.interfaces.IEntity;
+
+public class Department implements IEntity {
 
     private int id;
     private String name;

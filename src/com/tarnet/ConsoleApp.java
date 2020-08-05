@@ -2,7 +2,7 @@ package com.tarnet;
 
 import com.tarnet.entity.Department;
 import com.tarnet.entity.Personel;
-import com.tarnet.enums.InventoryItemType;
+import com.tarnet.managers.EntityManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,10 +16,14 @@ public class ConsoleApp {
     //    private final static MenuItem[] appMenuTree = new MenuItem[3];
     private final static List<MenuItem> appMenuTree = new ArrayList<>();// Inferring LinkedList
     private static  List<Personel> personels = new ArrayList<>();
+    private static  List<Department> departments = new ArrayList<>();
+    private static EntityManager<Personel> personelEntityManager=new EntityManager<>(personels);
+    private static EntityManager<Department> departmentEntityManager=new EntityManager<>(departments);
     private static BufferedReader consoleReader;
     private static boolean isExited = false;
 
     public static void main(String[] args) throws IOException {
+        GenerateStaticData();
         consoleReader = new BufferedReader(new InputStreamReader(System.in));
         GenerateAppMenu();
         do {
@@ -39,8 +43,8 @@ public class ConsoleApp {
                 .withDisplayOrder(1)
                 .build());
 
-        appMenuTree.add(new MenuItem.Builder().withId(11).withTitle("Ekle").withParentId(1).withDisplayOrder(1).build());
-        appMenuTree.add(new MenuItem.Builder().withId(12).withTitle("Cikar").withParentId(1).withDisplayOrder(2).build());
+        appMenuTree.add(new MenuItem.Builder().withId(11).withTitle("FindById").withParentId(1).withDisplayOrder(1).build());
+        appMenuTree.add(new MenuItem.Builder().withId(12).withTitle("Search For Keyword").withParentId(1).withDisplayOrder(2).build());
         appMenuTree.add(new MenuItem.Builder().withId(13).withTitle("Listele").withParentId(1).withDisplayOrder(3).build());
 //----------------------------------------------------------------------------------------------------------------------------
         appMenuTree.add(new MenuItem.Builder().withId(2).withTitle("Departmanlar").withParentId(-1).withDisplayOrder(3).build());
@@ -62,6 +66,12 @@ public class ConsoleApp {
         personels.add(new Personel(3,"Mehmet Emin","Cakir","Senior Dev",new Department(1,"IT")));
         personels.add(new Personel(4,"Ersin","Kilic","Architect",new Department(1,"IT")));
         personels.add(new Personel(5,"Faik Aykut","Acer","Dev Manager",new Department(1,"IT")));
+
+        departments.add(new Department(1,"IT"));
+        departments.add(new Department(2,"HR"));
+        departments.add(new Department(3,"Marketing"));
+        departments.add(new Department(4,"SM"));
+        departments.add(new Department(4,"Support"));
 
     }
 
