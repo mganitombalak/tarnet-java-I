@@ -1,5 +1,7 @@
 package com.tarnet;
 
+import com.tarnet.entity.Department;
+import com.tarnet.entity.Personel;
 import com.tarnet.enums.InventoryItemType;
 
 import java.io.BufferedReader;
@@ -13,6 +15,7 @@ public class ConsoleApp {
 
     //    private final static MenuItem[] appMenuTree = new MenuItem[3];
     private final static List<MenuItem> appMenuTree = new ArrayList<>();// Inferring LinkedList
+    private static  List<Personel> personels = new ArrayList<>();
     private static BufferedReader consoleReader;
     private static boolean isExited = false;
 
@@ -51,6 +54,15 @@ public class ConsoleApp {
         appMenuTree.add(new MenuItem.Builder().withId(31).withTitle("Ekle").withParentId(3).withDisplayOrder(1).build());
         appMenuTree.add(new MenuItem.Builder().withId(32).withTitle("Cikar").withParentId(3).withDisplayOrder(2).build());
         appMenuTree.add(new MenuItem.Builder().withId(33).withTitle("Listele").withParentId(3).withDisplayOrder(3).build());
+    }
+
+    private static void GenerateStaticData(){
+        personels.add(new Personel(1,"Mehmet Gani","Tombalak","Dev",new Department(1,"IT")));
+        personels.add(new Personel(2,"Burcu","Durmusoglu","Senior Dev",new Department(1,"IT")));
+        personels.add(new Personel(3,"Mehmet Emin","Cakir","Senior Dev",new Department(1,"IT")));
+        personels.add(new Personel(4,"Ersin","Kilic","Architect",new Department(1,"IT")));
+        personels.add(new Personel(5,"Faik Aykut","Acer","Dev Manager",new Department(1,"IT")));
+
     }
 
     private static void Run(int parentId) throws IOException {
