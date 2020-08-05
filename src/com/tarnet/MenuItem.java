@@ -38,7 +38,7 @@ public class MenuItem {
 
     @Override
     public String toString() {
-        return this.getTitle();
+        return this.getDisplayOrder() + "." +this.getTitle() + "("+this.getId()+")";
 //                "MenuItem{" +
 //                "title='" + title + '\'' +
 //                ", displayOrder=" + displayOrder +
