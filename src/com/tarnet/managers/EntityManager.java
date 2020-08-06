@@ -3,6 +3,7 @@ package com.tarnet.managers;
 import com.tarnet.interfaces.IEntity;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,5 @@ public class EntityManager<T extends IEntity> { // TEMPLATE CLASS && TEMPLATE FU
         return dataList.parallelStream().filter(e -> e.getId() == id).collect(Collectors.toList());
     }
 
-    public List<T> findByKeyword(String keyword) {
-        return dataList.parallelStream().filter(e -> e.toString().contains(keyword)).collect(Collectors.toList());
-    }
+    public Function<String, List<T>> findByKeyword = (String keyword) -> dataList.parallelStream().filter(e -> e.toString().contains(keyword)).collect(Collectors.toList());
 }

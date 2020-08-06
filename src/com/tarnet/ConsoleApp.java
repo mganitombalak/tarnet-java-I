@@ -25,6 +25,10 @@ public class ConsoleApp {
     public static void main(String[] args) throws IOException {
 //        Supplier<String> s = () -> "Hello world!";
 //        System.out.println(s.get());
+
+//        Function<String, Boolean> f = (String keyword) -> keyword.equals("Gani");
+//        System.out.println(f.apply("Gani"));
+
         GenerateStaticData();
         consoleReader = new BufferedReader(new InputStreamReader(System.in));
         GenerateAppMenu();
@@ -52,7 +56,13 @@ public class ConsoleApp {
                 .withDisplayOrder(1)
                 .withAction(() -> null)
                 .build());
-        appMenuTree.add(new MenuItem.Builder().withId(12).withTitle("Search For Keyword").withParentId(1).withDisplayOrder(2).build());
+        appMenuTree.add(new MenuItem.Builder()
+                .withId(12)
+                .withTitle("Search For Keyword")
+                .withParentId(1)
+                .withDisplayOrder(2)
+                .withStringParamAction(personelEntityManager.findByKeyword)
+                .build());
         appMenuTree.add(new MenuItem.Builder<List<Personel>>()
                 .withId(13)
                 .withTitle("Listele")
@@ -121,7 +131,15 @@ public class ConsoleApp {
                         .findFirst()
                         .ifPresent(menuItem -> {
                             if (menuItem.getAction() != null) {
-                                ((List<?>)menuItem.getAction().get()).forEach(System.out::println);
+                                ((List<?>) menuItem.getAction().get()).forEach(System.out::println);
+                            } else if (menuItem.getStringParamAction() != null) {
+                                System.out.print("Please enter keyword:");
+                                try {
+                                    String keyword = consoleReader.readLine();
+                                    ((List<?>)menuItem.getStringParamAction().apply(keyword)).forEach(System.out::println);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
             }

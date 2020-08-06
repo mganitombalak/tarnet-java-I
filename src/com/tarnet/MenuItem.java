@@ -1,5 +1,7 @@
 package com.tarnet;
 
+import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class MenuItem<T> {
@@ -9,16 +11,18 @@ public class MenuItem<T> {
     private int displayOrder; //Instance Variable
     private int parentId;
     private Supplier<T> action;
+    private Function<String, List<T>> stringParamAction;
 
     public MenuItem() {
     }
 
-    public MenuItem(int id, String title, int displayOrder, int parentId, Supplier<T> action) {
+    public MenuItem(int id, String title, int displayOrder, int parentId, Supplier<T> action, Function<String, List<T>> stringParamAction) {
         this.id = id;
         this.title = title;
         this.displayOrder = displayOrder;
         this.parentId = parentId;
         this.action = action;
+        this.stringParamAction = stringParamAction;
     }
 
     // PROPERTY ENCAPSULATION / GETTER-SETTER ENCAPSULATION
@@ -75,6 +79,14 @@ public class MenuItem<T> {
         this.action = action;
     }
 
+    public Function<String, List<T>> getStringParamAction() {
+        return stringParamAction;
+    }
+
+    private void setStringParamAction(Function<String, List<T>> stringParamAction) {
+        this.stringParamAction = stringParamAction;
+    }
+
 
     // Builder Pattern
     public static class Builder<T> {
@@ -105,6 +117,11 @@ public class MenuItem<T> {
 
         public Builder withAction(Supplier<T> action){
             this.instance.setAction(action);
+            return this;
+        }
+
+        public Builder withStringParamAction(Function<String,List<T>> action){
+            this.instance.setStringParamAction(action);
             return this;
         }
 
