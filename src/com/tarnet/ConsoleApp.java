@@ -1,8 +1,10 @@
 package com.tarnet;
 
 import com.tarnet.entity.Department;
+import com.tarnet.entity.Inventory;
 import com.tarnet.entity.Personel;
 import com.tarnet.managers.EntityManager;
+import lombok.val;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +30,6 @@ public class ConsoleApp {
 
 //        Function<String, Boolean> f = (String keyword) -> keyword.equals("Gani");
 //        System.out.println(f.apply("Gani"));
-
         GenerateStaticData();
         consoleReader = new BufferedReader(new InputStreamReader(System.in));
         GenerateAppMenu();
@@ -54,7 +55,7 @@ public class ConsoleApp {
                 .withTitle("Find By Id")
                 .withParentId(1)
                 .withDisplayOrder(1)
-                .withAction(() -> null)
+                .withIdParamAction(personelEntityManager.findById)
                 .build());
         appMenuTree.add(new MenuItem.Builder()
                 .withId(12)
@@ -137,6 +138,14 @@ public class ConsoleApp {
                                 try {
                                     String keyword = consoleReader.readLine();
                                     ((List<?>)menuItem.getStringParamAction().apply(keyword)).forEach(System.out::println);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (menuItem.getIdParamAction() != null) {
+                                System.out.print("Please enter Id:");
+                                try {
+                                    int selectedId = Integer.parseInt(consoleReader.readLine());
+                                    ((List<?>)menuItem.getIdParamAction().apply(selectedId)).forEach(System.out::println);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

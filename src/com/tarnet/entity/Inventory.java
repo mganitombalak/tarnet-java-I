@@ -2,7 +2,9 @@ package com.tarnet.entity;
 
 import com.tarnet.enums.InventoryItemType;
 import com.tarnet.interfaces.IEntity;
+import lombok.Builder;
 
+@Builder
 public class Inventory implements IEntity {
     private int id;
     private String name;

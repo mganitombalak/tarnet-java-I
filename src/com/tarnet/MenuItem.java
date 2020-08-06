@@ -1,66 +1,26 @@
 package com.tarnet;
 
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
+@AllArgsConstructor
 public class MenuItem<T> {
     // private,default,protected,public ACCESS MODIFIER
+//    @Getter
+//    @Setter(AccessLevel.PRIVATE)
     private int id;
     private String title;
     private int displayOrder; //Instance Variable
     private int parentId;
     private Supplier<T> action;
     private Function<String, List<T>> stringParamAction;
+    private IntFunction<List<T>> idParamAction;
 
     public MenuItem() {
-    }
-
-    public MenuItem(int id, String title, int displayOrder, int parentId, Supplier<T> action, Function<String, List<T>> stringParamAction) {
-        this.id = id;
-        this.title = title;
-        this.displayOrder = displayOrder;
-        this.parentId = parentId;
-        this.action = action;
-        this.stringParamAction = stringParamAction;
-    }
-
-    // PROPERTY ENCAPSULATION / GETTER-SETTER ENCAPSULATION
-    public String getTitle() {
-        return title;
-    }
-
-    //                           Parameter
-    private void setTitle(String title) {
-        // DERIVED CLASS CAN CONTAIN LOGIC
-        this.title = title;
-    }
-
-    public int getDisplayOrder() {
-        return displayOrder;
-    }
-
-    private void setDisplayOrder(int displayOrder) {
-        // EXTRA BUSINESS LOGIC
-        this.displayOrder = displayOrder;
-    }
-
-    @Override
-    public String toString() {
-        return this.getDisplayOrder() + "." +this.getTitle() + "("+this.getId()+")";
-//                "MenuItem{" +
-//                "title='" + title + '\'' +
-//                ", displayOrder=" + displayOrder +
-//                ", parent=" + parent +
-//                '}';
-    }
-
-    public int getParentId() {
-        return parentId;
-    }
-
-    private void setParentId(int parentId) {
-        this.parentId = parentId;
     }
 
     public int getId() {
@@ -69,6 +29,30 @@ public class MenuItem<T> {
 
     private void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    private void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getDisplayOrder() {
+        return displayOrder;
+    }
+
+    private void setDisplayOrder(int displayOrder) {
+        this.displayOrder = displayOrder;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    private void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     public Supplier<T> getAction() {
@@ -87,6 +71,23 @@ public class MenuItem<T> {
         this.stringParamAction = stringParamAction;
     }
 
+    public IntFunction<List<T>> getIdParamAction() {
+        return idParamAction;
+    }
+
+    private void setIdParamAction(IntFunction<List<T>> idParamAction) {
+        this.idParamAction = idParamAction;
+    }
+
+    @Override
+    public String toString() {
+        return this.getDisplayOrder() + "." +this.getTitle() + "("+this.getId()+")";
+//                "MenuItem{" +
+//                "title='" + title + '\'' +
+//                ", displayOrder=" + displayOrder +
+//                ", parent=" + parent +
+//                '}';
+    }
 
     // Builder Pattern
     public static class Builder<T> {
@@ -122,6 +123,11 @@ public class MenuItem<T> {
 
         public Builder withStringParamAction(Function<String,List<T>> action){
             this.instance.setStringParamAction(action);
+            return this;
+        }
+
+        public Builder withIdParamAction(IntFunction<List<T>> action){
+            this.instance.setIdParamAction(action);
             return this;
         }
 
