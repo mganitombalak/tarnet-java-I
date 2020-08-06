@@ -23,10 +23,8 @@ public class ConsoleApp {
     private static boolean isExited = false;
 
     public static void main(String[] args) throws IOException {
-
 //        Supplier<String> s = () -> "Hello world!";
 //        System.out.println(s.get());
-
         GenerateStaticData();
         consoleReader = new BufferedReader(new InputStreamReader(System.in));
         GenerateAppMenu();
@@ -53,7 +51,7 @@ public class ConsoleApp {
                 .withParentId(1)
                 .withDisplayOrder(1)
                 .withAction(() -> {
-                    System.out.println("FindById selected");
+                    System.out.println();
                     return null;
                 })
                 .build());
@@ -113,6 +111,17 @@ public class ConsoleApp {
             isExited = true;
         } else {
             if (selectedMenuItem == 0) return;
+            else if (selectedMenuItem != 0 && parentId != -1) {
+                appMenuTree
+                        .stream()
+                        .filter(m -> m.getId() == selectedMenuItem)
+                        .findFirst()
+                        .ifPresent(menuItem -> {
+                            if (menuItem.getAction() != null) {
+                                menuItem.getAction().get();
+                            }
+                        });
+            }
             Run(selectedMenuItem);
         }
     }
