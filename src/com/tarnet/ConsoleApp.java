@@ -45,18 +45,21 @@ public class ConsoleApp {
                 .withDisplayOrder(1)
                 .build());
 
-        appMenuTree.add(new MenuItem.Builder()
+        appMenuTree.add(new MenuItem.Builder<List<Personel>>()
                 .withId(11)
                 .withTitle("Find By Id")
                 .withParentId(1)
                 .withDisplayOrder(1)
-                .withAction(() -> {
-                    System.out.println();
-                    return null;
-                })
+                .withAction(() -> null)
                 .build());
         appMenuTree.add(new MenuItem.Builder().withId(12).withTitle("Search For Keyword").withParentId(1).withDisplayOrder(2).build());
-        appMenuTree.add(new MenuItem.Builder().withId(13).withTitle("Listele").withParentId(1).withDisplayOrder(3).build());
+        appMenuTree.add(new MenuItem.Builder<List<Personel>>()
+                .withId(13)
+                .withTitle("Listele")
+                .withParentId(1)
+                .withDisplayOrder(3)
+                .withAction(personelEntityManager.findAll)
+                .build());
 //----------------------------------------------------------------------------------------------------------------------------
         appMenuTree.add(new MenuItem.Builder().withId(2).withTitle("Departmanlar").withParentId(-1).withDisplayOrder(3).build());
 
@@ -118,7 +121,7 @@ public class ConsoleApp {
                         .findFirst()
                         .ifPresent(menuItem -> {
                             if (menuItem.getAction() != null) {
-                                menuItem.getAction().get();
+                                ((List<?>)menuItem.getAction().get()).forEach(System.out::println);
                             }
                         });
             }
