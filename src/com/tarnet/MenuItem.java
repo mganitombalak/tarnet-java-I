@@ -1,19 +1,24 @@
 package com.tarnet;
 
-public class MenuItem {
+import java.util.function.Supplier;
+
+public class MenuItem<T> {
     // private,default,protected,public ACCESS MODIFIER
     private int id;
     private String title;
     private int displayOrder; //Instance Variable
     private int parentId;
+    private Supplier<T> action;
 
     public MenuItem() {
     }
 
-    public MenuItem(String title, int displayOrder) {
-        //            argument
-        this.setTitle(title);
-        this.setDisplayOrder(displayOrder);
+    public MenuItem(int id, String title, int displayOrder, int parentId, Supplier<T> action) {
+        this.id = id;
+        this.title = title;
+        this.displayOrder = displayOrder;
+        this.parentId = parentId;
+        this.action = action;
     }
 
     // PROPERTY ENCAPSULATION / GETTER-SETTER ENCAPSULATION
@@ -62,8 +67,17 @@ public class MenuItem {
         this.id = id;
     }
 
+    public Supplier<T> getAction() {
+        return action;
+    }
+
+    private void setAction(Supplier<T> action) {
+        this.action = action;
+    }
+
+
     // Builder Pattern
-    public static class Builder {
+    public static class Builder<T> {
         private MenuItem instance;
 
         public Builder() {
@@ -86,6 +100,11 @@ public class MenuItem {
 
         public Builder withParentId(int id){
             this.instance.setParentId(id);
+            return this;
+        }
+
+        public Builder withAction(Supplier<T> action){
+            this.instance.setAction(action);
             return this;
         }
 

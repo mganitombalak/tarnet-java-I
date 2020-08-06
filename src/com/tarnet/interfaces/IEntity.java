@@ -4,6 +4,14 @@ public interface IEntity { //<T> {
 
     int getId();
 
+//    static  void staticFunc(){
+//        System.out.println("Static Func has been called.");
+//    }
+//
+//    default void func(){
+//        System.out.println("Func has been called!");
+//    }
+
     // VARIANCE
     // COVARIANCE
     // CONTRAVARIANCE

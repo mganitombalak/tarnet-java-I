@@ -14,6 +14,7 @@ public class EntityManager<T extends IEntity>{ // TEMPLATE CLASS && TEMPLATE FUN
 
     public List<T> findAll (){
         return this.dataList;
+
     }
 
     public List<T>  findById(int id){
