@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class ConsoleApp {
 
     //    private final static MenuItem[] appMenuTree = new MenuItem[3];
@@ -54,7 +56,7 @@ public class ConsoleApp {
                 .withTitle("Find By Id")
                 .withParentId(1)
                 .withDisplayOrder(1)
-                .withAction(() -> null)
+                .withIDAction(personelEntityManager.findById)
                 .build());
         appMenuTree.add(new MenuItem.Builder()
                 .withId(12)
@@ -119,7 +121,7 @@ public class ConsoleApp {
 //                endTime = System.currentTimeMillis() - startTime;
 //        System.out.printf("Stream Menu has been generated in %s ms.\n",endTime);
         System.out.print("Seciminiz:");
-        int selectedMenuItem = Integer.parseInt(consoleReader.readLine());
+        int selectedMenuItem = parseInt(consoleReader.readLine());
         if (selectedMenuItem == 0 && parentId == -1) {
             isExited = true;
         } else {
@@ -140,9 +142,23 @@ public class ConsoleApp {
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
+                            }else if(menuItem.getiDAction() !=  null){
+                                System.out.print("Please enter id:");
+                                try {
+                                    int id = parseInt(consoleReader.readLine());
+
+                                    System.out.println(menuItem.getiDAction().apply(id));
+                                   // (menuItem.getiDAction().apply(id)).forEach(System.out::println);
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+
                             }
                         });
             }
+
             Run(selectedMenuItem);
         }
     }

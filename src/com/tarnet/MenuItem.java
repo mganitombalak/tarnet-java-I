@@ -12,17 +12,20 @@ public class MenuItem<T> {
     private int parentId;
     private Supplier<T> action;
     private Function<String, List<T>> stringParamAction;
+    private Function<Integer, List<T>> iDAction;
+
 
     public MenuItem() {
     }
 
-    public MenuItem(int id, String title, int displayOrder, int parentId, Supplier<T> action, Function<String, List<T>> stringParamAction) {
+    public MenuItem(int id, String title, int displayOrder, int parentId, Supplier<T> action, Function<String, List<T>> stringParamAction, Function<Integer, List<T>> iDAction) {
         this.id = id;
         this.title = title;
         this.displayOrder = displayOrder;
         this.parentId = parentId;
         this.action = action;
         this.stringParamAction = stringParamAction;
+        this.iDAction = iDAction;
     }
 
     // PROPERTY ENCAPSULATION / GETTER-SETTER ENCAPSULATION
@@ -87,6 +90,13 @@ public class MenuItem<T> {
         this.stringParamAction = stringParamAction;
     }
 
+    public Function<Integer, List<T>> getiDAction() {
+        return iDAction;
+    }
+
+    public void setiDAction(Function<Integer, List<T>> iDAction) {
+        this.iDAction = iDAction;
+    }
 
     // Builder Pattern
     public static class Builder<T> {
@@ -122,6 +132,11 @@ public class MenuItem<T> {
 
         public Builder withStringParamAction(Function<String,List<T>> action){
             this.instance.setStringParamAction(action);
+            return this;
+        }
+
+        public Builder withIDAction(Function<Integer,List<T>> action){
+            this.instance.setiDAction(action);
             return this;
         }
 
