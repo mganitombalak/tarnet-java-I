@@ -3,6 +3,7 @@ package com.tarnet.thread;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ThreadApp {
     public static void main(String[] args) throws InterruptedException { //MAIN
@@ -35,6 +36,39 @@ public class ThreadApp {
 //        s.join();
 //        System.out.println("After");
 //        arr.forEach(System.out::println);
+
+        final List<Person> personList = Arrays.asList(
+                new Person(1,"Gani"),
+                new Person(2,"Harun"),
+                new Person(3,"Ersin"),
+                new Person(4,"Aykut"),
+                new Person(5,"Ahmet"),
+                new Person(6,"Beste"),
+                new Person(7,"Burcu")
+        );
+
+//        RUNNABLES
+
+//        Runnable r1 = ()-> personList.parallelStream().forEach(System.out::println);//personList.stream().forEach(System.out::println);
+//        Thread t1 = new Thread(r1);
+//        t1.start();
+//        t1.join();
+//------------------------------------------------------------------------------------
+//        Runnable r = ()-> personList.forEach(Person::print);
+//        Thread t1 = new Thread(r);
+//        t1.start();
+//        t1.join();
+//-------------------------------------------------------------------------------------
+//        Runnable r = ()->{
+//            Consumer<Person> consumer= p-> System.out.println("Id:"+p.getId()+" Name:"+p.getName());
+//            personList.forEach(consumer);
+//        };
+//
+//        Thread t1 = new Thread(r);
+//        t1.start();
+//        t1.join();
+//
+//        CALLABLES
 
 
     }
