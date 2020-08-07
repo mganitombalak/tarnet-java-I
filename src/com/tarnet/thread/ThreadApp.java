@@ -109,12 +109,14 @@ public class ThreadApp {
 
         final val counter =new Counter();
 
+
         Runnable inc = ()->{
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             counter.Inc();
         };
         Runnable dec=()->{
@@ -126,6 +128,8 @@ public class ThreadApp {
             counter.Dec();
         };
 
-
+        executor.execute(inc);
+        executor.execute(dec);
+        executor.shutdown();
     }
 }

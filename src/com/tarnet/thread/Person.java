@@ -13,6 +13,13 @@ public class Person {
     private double salary;
 
     public void print(){
-        System.out.printf("id:%d - Name:%s%n",this.getId(),this.getName());
+        System.out.printf("id:%d - Name:%s%n",this.getId(),this.getName(),this.department,this.salary);
+    }
+
+    public String getName() {
+        return name;
+    }
+    public String getId() {
+        return name;
     }
 }
