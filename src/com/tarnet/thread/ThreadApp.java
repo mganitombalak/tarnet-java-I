@@ -45,6 +45,11 @@ public class ThreadApp {
         });
 
         System.out.println("OK");
+
+        Thread s =new Thread(new Raise(personList));
+        s.start();
+        s.join();
+
 //        RUNNABLES
 
 //        Runnable r1 = ()-> personList.parallelStream().forEach(System.out::println);//personList.stream().forEach(System.out::println);
