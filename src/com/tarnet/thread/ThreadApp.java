@@ -2,6 +2,7 @@ package com.tarnet.thread;
 
 
 import com.github.javafaker.Faker;
+import lombok.val;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +105,26 @@ public class ThreadApp {
 //        executorSvc.execute(r);
 //        executorSvc.shutdown();
 
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        final val counter =new Counter();
+
+        Runnable inc = ()->{
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            counter.Inc();
+        };
+        Runnable dec=()->{
+            try {
+                Thread.sleep(2200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            counter.Dec();
+        };
 
 
     }
