@@ -1,9 +1,11 @@
 package com.tarnet.thread;
 
 
-import java.util.Arrays;
+import com.github.javafaker.Faker;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
 public class ThreadApp {
     public static void main(String[] args) throws InterruptedException { //MAIN
@@ -37,16 +39,12 @@ public class ThreadApp {
 //        System.out.println("After");
 //        arr.forEach(System.out::println);
 
-        final List<Person> personList = Arrays.asList(
-                new Person(1,"Gani"),
-                new Person(2,"Harun"),
-                new Person(3,"Ersin"),
-                new Person(4,"Aykut"),
-                new Person(5,"Ahmet"),
-                new Person(6,"Beste"),
-                new Person(7,"Burcu")
-        );
+        final List<Person> personList = new ArrayList<>();
+        IntStream.range(0, 10000).forEach(id -> {
+            personList.add(new Person(id, Faker.instance().name().fullName(), (id % 5 == 0 ? "HR" : "IT"), Faker.instance().number().randomDouble(2, 1, 15000)));
+        });
 
+        System.out.println("OK");
 //        RUNNABLES
 
 //        Runnable r1 = ()-> personList.parallelStream().forEach(System.out::println);//personList.stream().forEach(System.out::println);

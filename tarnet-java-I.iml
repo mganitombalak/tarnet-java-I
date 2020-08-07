@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.projectlombok:lombok:1.18.12" level="project" />
     <orderEntry type="library" name="com.h2database:h2:1.4.200" level="project" />
+    <orderEntry type="library" name="com.github.javafaker:javafaker:1.0.2" level="project" />
   </component>
 </module>

@@ -9,6 +9,9 @@ import lombok.Data;
 public class Person {
     private int id;
     private String name;
+    private String department;
+    private double salary;
+
     public void print(){
         System.out.printf("id:%d - Name:%s%n",this.getId(),this.getName());
     }
