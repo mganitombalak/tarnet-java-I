@@ -40,11 +40,21 @@ public class ThreadApp {
 //        arr.forEach(System.out::println);
 
         final List<Person> personList = new ArrayList<>();
-        IntStream.range(0, 10000).forEach(id -> {
+        IntStream.range(0, 10000).parallel().forEach(id -> {
             personList.add(new Person(id, Faker.instance().name().fullName(), (id % 5 == 0 ? "HR" : "IT"), Faker.instance().number().randomDouble(2, 1, 15000)));
         });
 
         System.out.println("OK");
+        Runnable r1=()-> personList.parallelStream().forEach(id->{
+            if(personList.get(id.getId()).getDepartment().equals("IT")){
+                personList.get(id.getId()).setSalary((personList.get(id.getId()).getSalary()*(0.05)));
+            }else{
+                personList.get(id.getId()).setSalary((personList.get(id.getId()).getSalary()*(0.10)));
+            }
+        });
+        Thread s=new Thread(r1);
+        s.start();
+        s.join();
 //        RUNNABLES
 
 //        Runnable r1 = ()-> personList.parallelStream().forEach(System.out::println);//personList.stream().forEach(System.out::println);

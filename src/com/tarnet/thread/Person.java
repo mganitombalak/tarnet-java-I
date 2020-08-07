@@ -1,11 +1,11 @@
 package com.tarnet.thread;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 
 @Data
 @AllArgsConstructor
+@Builder
 public class Person {
     private int id;
     private String name;
