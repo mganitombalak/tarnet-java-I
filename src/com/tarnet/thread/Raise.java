@@ -1,6 +1,7 @@
 package com.tarnet.thread;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by oyasar on 7.08.2020.
@@ -16,13 +17,14 @@ public class Raise implements Runnable {
     @Override
     public void run() {
         this.list
+                //.stream()
                 .forEach(x -> {
                     if(x.getDepartment() == "HR"){
                         x.setSalary((x.getSalary() * 0.05) + x.getSalary());
                     }else{
                         x.setSalary((x.getSalary() * 0.10) + x.getSalary());
                     }
-                }
+                }//.collect(Collectors.toList())
                 );
     }
 }
