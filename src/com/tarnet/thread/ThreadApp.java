@@ -5,6 +5,9 @@ import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 public class ThreadApp {
@@ -39,12 +42,12 @@ public class ThreadApp {
 //        System.out.println("After");
 //        arr.forEach(System.out::println);
 
-        final List<Person> personList = new ArrayList<>();
-        IntStream.range(0, 10000).forEach(id -> {
-            personList.add(new Person(id, Faker.instance().name().fullName(), (id % 5 == 0 ? "HR" : "IT"), Faker.instance().number().randomDouble(2, 1, 15000)));
-        });
+//        final List<Person> personList = new ArrayList<>();
+//        IntStream.range(0, 100).parallel().forEach(id -> {
+//            personList.add(new Person(id, Faker.instance().name().fullName(), (id % 5 == 0 ? "HR" : "IT"), Faker.instance().number().randomDouble(2, 1, 15000)));
+//        });
 
-        System.out.println("OK");
+//        System.out.println("OK");
 //        RUNNABLES
 
 //        Runnable r1 = ()-> personList.parallelStream().forEach(System.out::println);//personList.stream().forEach(System.out::println);
@@ -66,7 +69,41 @@ public class ThreadApp {
 //        t1.start();
 //        t1.join();
 //
-//        CALLABLES
+
+
+//        Thread t1 = new Thread(salaryUpdate);
+//        long startTime = System.currentTimeMillis();
+//        t1.start();
+//        t1.join();
+//        long endTime = System.currentTimeMillis() - startTime;
+//        System.out.printf("Operation complete in %d ms", endTime);
+
+//        THREAD POOLING
+//        EXECUTOR & SYNC
+
+//        ExecutorService executorSvc = Executors.newFixedThreadPool(2);//new ThreadPoolExecutor()
+//        Runnable salaryUpdate = () -> {
+//            System.out.println("Salary:" + Thread.currentThread().getId());
+//            Consumer<Person> priceUpdater = (Person p) -> p.setSalary(p.getSalary() * (p.getDepartment().equals("HR") ? 1.05 : 1.1));
+////            personList.parallelStream().forEach(priceUpdater);
+//            personList.forEach(priceUpdater);
+//        };
+//        Runnable printer = () -> {
+//            System.out.println("Printing:" + Thread.currentThread().getId());
+//            personList.forEach(System.out::println);
+//        };
+//        Runnable r = () -> {
+//            System.out.println("R:" + Thread.currentThread().getId());
+//            personList.forEach(p -> p.getDepartment());
+//        };
+//        System.out.println("Printing Phase is about to initiate.");
+//        executorSvc.execute(printer);
+//        System.out.println("Salary Update Phase is about to initiate.");
+//        executorSvc.execute(salaryUpdate);
+//        System.out.println("Deparment Printing Phase is about to initiate.");
+//        executorSvc.execute(r);
+//        executorSvc.shutdown();
+
 
 
     }
