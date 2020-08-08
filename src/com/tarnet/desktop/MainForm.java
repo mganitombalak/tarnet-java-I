@@ -2,6 +2,8 @@ package com.tarnet.desktop;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainForm extends JFrame {
     public MainForm() throws HeadlessException {
@@ -24,7 +26,17 @@ public class MainForm extends JFrame {
         JLabel lblEnterMessage = new JLabel("Enter Message:");
         JTextField txtMessage = new JFormattedTextField(15);
         JButton btnSend = new JButton("Send");
+        btnSend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JOptionPane.showMessageDialog(null,"First");
+            }
+        });
+
         JButton btnReset = new JButton("Reset");
+        btnReset.addActionListener(actionEvent -> {
+            JOptionPane.showMessageDialog(null,"Form has been reset.");
+        });
 
         panel.add(lblEnterMessage);
         panel.add(txtMessage);
