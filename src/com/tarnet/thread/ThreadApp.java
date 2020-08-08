@@ -3,12 +3,10 @@ package com.tarnet.thread;
 
 import lombok.val;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.concurrent.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class ThreadApp {
     public static void main(String[] args) throws InterruptedException { //MAIN
@@ -104,13 +102,12 @@ public class ThreadApp {
 //        executorSvc.execute(r);
 //        executorSvc.shutdown(); //Gracefully Shutdown
 
-//       ExecutorService executor = Executors.newFixedThreadPool(2);
-//       val counter = new Counter();
-//
-//       executor.execute(counter);
-//       executor.execute(counter);
-//
-//        System.out.println(counter.getValue());
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        val counter = new Counter();
+        IntStream.range(0, 1000).forEach(t -> executor.execute(counter::Inc));
+        executor.shutdown();
+        executor.awaitTermination(1,TimeUnit.SECONDS);
+        System.out.println("Total:" + counter.getValue());
 
 //        ReentrantLock locker = new ReentrantLock();
 //        executor.execute(()->{
@@ -145,17 +142,17 @@ public class ThreadApp {
 //        BlockingQueue bq = new LinkedBlockingQueue();
 
 
-        List<MyCallable<String>> callables = Arrays.asList(
-                new MyCallable<String>(4,"Ahmet", 1),
-                new MyCallable<String>(2,"Adem", 2),
-                new MyCallable<String>(3,"Ersin", 3),
-                new MyCallable<String>(1,"Burcu", 4),
-                new MyCallable<String>(5,"Talat", 5),
-                new MyCallable<String>(6,"Beste", 6),
-                new MyCallable<String>(7,"Hilal", 7)
-        );
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+//        List<MyCallable<String>> callables = Arrays.asList(
+//                new MyCallable<String>(4,"Ahmet", 1),
+//                new MyCallable<String>(2,"Adem", 2),
+//                new MyCallable<String>(3,"Ersin", 3),
+//                new MyCallable<String>(1,"Burcu", 4),
+//                new MyCallable<String>(5,"Talat", 5),
+//                new MyCallable<String>(6,"Beste", 6),
+//                new MyCallable<String>(7,"Hilal", 7)
+//        );
+//
+//        ExecutorService executor = Executors.newFixedThreadPool(2);
 
 //        Future<String> f = executor.submit(GenerateCallable("Mehmet Gani",10));
 //        try {
@@ -163,30 +160,30 @@ public class ThreadApp {
 //        } catch (ExecutionException e) {
 //            e.printStackTrace();
 //        }
-        List<Callable<String>> ordered = callables
-                .stream()
-                .sorted(Comparator.comparingInt(MyCallable::getOrder))
-                .map(MyCallable::get).collect(Collectors.toList());
-
-        executor.invokeAll(ordered).stream().map(f -> {
-            try {
-                return f.get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                return null;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }).forEach(System.out::println);
-        executor.shutdown();
-    }
-
-    private static Callable<String> GenerateCallable(String result, long sleep) {
-        return () -> {
-            System.out.println("Data:" + result + " Thread:" + Thread.currentThread().getId());
-            TimeUnit.SECONDS.sleep(sleep);
-            return result;
-        };
+//        List<Callable<String>> ordered = callables
+//                .stream()
+//                .sorted(Comparator.comparingInt(MyCallable::getOrder))
+//                .map(MyCallable::get).collect(Collectors.toList());
+//
+//        executor.invokeAll(ordered).stream().map(f -> {
+//            try {
+//                return f.get();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//                return null;
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//                return null;
+//            }
+//        }).forEach(System.out::println);
+//        executor.shutdown();
+//    }
+//
+//    private static Callable<String> GenerateCallable(String result, long sleep) {
+//        return () -> {
+//            System.out.println("Data:" + result + " Thread:" + Thread.currentThread().getId());
+//            TimeUnit.SECONDS.sleep(sleep);
+//            return result;
+//        };
     }
 }
