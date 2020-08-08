@@ -1,5 +1,6 @@
 package com.tarnet.network;
 
+import com.tarnet.desktop.MainForm;
 import lombok.val;
 
 import java.io.BufferedReader;
@@ -18,19 +19,22 @@ public class TCPClient {
     public static void main(String[] args) throws IOException {
         consoleReader = new BufferedReader(new InputStreamReader(System.in));
         Host = InetAddress.getLocalHost();
-        connectToServer();
+        connectToServer(null);
     }
 
-    private static void connectToServer() throws IOException {
+    public static void connectToServer(String s) throws IOException {
         Socket connection = new Socket(Host, Port);
         val socketReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         val socketWriter = new PrintWriter(connection.getOutputStream(), true);
         do {
-            System.out.printf("Enter message:");
-            String outgoingMessage = consoleReader.readLine();
-            isExited = outgoingMessage.equals("exit") || outgoingMessage.equals("Exit");
-            socketWriter.println(outgoingMessage);
-            System.out.printf("Server(%s):%s%n", connection.getRemoteSocketAddress(), socketReader.readLine());
+            if(s!=null) {
+                System.out.printf("Enter message:");
+                String outgoingMessage = consoleReader.readLine();
+                isExited = outgoingMessage.equals("exit") || outgoingMessage.equals("Exit");
+                socketWriter.println(outgoingMessage);
+                System.out.printf("Server(%s):%s%n", connection.getRemoteSocketAddress(), socketReader.readLine());
+                MainForm.summary.setText(s);
+            }
         } while (!isExited);
 
 

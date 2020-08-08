@@ -1,11 +1,18 @@
 package com.tarnet.desktop;
 
+import com.tarnet.network.TCPClient;
+import lombok.SneakyThrows;
+import org.h2.server.TcpServer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainForm extends JFrame {
+    public static String messageField=null,messageArea=null;
+    public static JTextArea summary;
+    public static JTextField txtMessage;
     public MainForm() throws HeadlessException {
         this.setSize(600, 400);
         this.setTitle("Tarnet Messenger");
@@ -21,15 +28,18 @@ public class MainForm extends JFrame {
         JMenu helpMenu = new JMenu("Help");
         fileMenu.add(disConnectMenuItem);
         menuBar.add(helpMenu);
-
+        JTextArea summary = new JTextArea();
         JPanel panel = new JPanel();
         JLabel lblEnterMessage = new JLabel("Enter Message:");
-        JTextField txtMessage = new JFormattedTextField(15);
+        txtMessage = new JFormattedTextField(15);
         JButton btnSend = new JButton("Send");
         btnSend.addActionListener(new ActionListener() {
+            @SneakyThrows
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JOptionPane.showMessageDialog(null,"First");
+              //  JOptionPane.showMessageDialog(null,"First");
+                TCPClient.connectToServer(txtMessage.getText());
+
             }
         });
 
@@ -42,7 +52,9 @@ public class MainForm extends JFrame {
         panel.add(txtMessage);
         panel.add(btnSend);
         panel.add(btnReset);
-        JTextArea summary = new JTextArea();
+
+
+
         this.getContentPane().add(BorderLayout.PAGE_START, menuBar);
         this.getContentPane().add(BorderLayout.CENTER,summary);
         this.getContentPane().add(BorderLayout.PAGE_END, panel);
